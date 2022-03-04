@@ -14,7 +14,27 @@ There's no need to configure every plugin again, but installing some of the depe
 3. tsserver ''
 
 # Markdown Preview
+
 ```
+## Manuals
+Directory of `nvim` should look like this.
+
+-nvim							'main folder'
+├── init.lua					'start point'
+├── lua							'folder of configs'
+│   ├── mappings.lua			'all the key mappings'
+│   ├── options.lua				'normal neovim settings'
+│   ├── pack.lua				'packer config'
+│   └── plugins					'specific configs of plugins needed extra config'
+│       ├── autopairs.lua		'filename says a lot'
+│       ├── bufferline.lua		'... tab bar'
+│       ├── cmp.lua				'... lsp autocompletion'
+│       ├── lspconfig.lua		'...'
+│       └── lualine.lua			'... status line'
+├── plugin
+│   └── packer_compiled.lua		'this will be generated after running PackerCompile'
+└── README.md-	nvim
+
 ## References
 - [Collections of plugins](https://github.com/rockerBOO/awesome-neovim)
 - [Neovim Doc](https://neovim.io/doc/user/index.html): `keymap`, `options`, `lua`
