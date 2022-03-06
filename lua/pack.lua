@@ -37,7 +37,7 @@ return require('packer').startup(function()
 
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-	use	{ 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' }
+	use	{ 'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install' }
 
 	use 'preservim/nerdtree'
 
@@ -70,5 +70,3 @@ return require('packer').startup(function()
 	}
 
 end)
-----------------------------------------------------
------------- CUSTOM PLUGIN SETTINGS ----------------

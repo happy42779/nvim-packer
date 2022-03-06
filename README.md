@@ -14,8 +14,22 @@ There's no need to configure every plugin again, but installing some of the depe
 3. tsserver ''
 
 # Markdown Preview
+This needs `tslib` to be installed, I prefer using `npm i -g tslib` to keep `nvim` folder clean.
 
 ```
+
+## Mappings
+The	*Alt* key is not working properly, so there're some key mappings not working. You need to change the setting: 
+
+iTerm2: `Preferences` -> `Profiles` -> `Key Mappings` -> `Left Option key` -> check `Esc+`
+
+Terminal: `Preferences` -> `Profiles` -> `Keyboard` -> check `Use Option as Meta key`
+
+	> iTerm2 is recommended, as the some colorscheme(tokyonight) is not working properly with 
+	the default Terminal.app.
+
+For other key mappings, please refer to `mappings.lua`. 
+
 ## Manuals
 Directory of `nvim` should look like this.
 ```md

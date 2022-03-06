@@ -11,29 +11,41 @@ vim.g.mapleader = " "
 
 --- neovim Key Mappings
 -- 快速左右分屏，并进入到命令模式，等待输入文件名
+-- split screen horizontally
 map("n", "<LEADER>h", ":vsplit ", opts)
 -- 快速上下分平，并进入到命令模式，等待输入文件名
+-- split screen vertically
 map("n", "<LEADER>j", ":split ", opts)
 -- 快速退出，有改变就保存，没改变就直接退出
+-- Write and exit if there's buffer, or exit if there's not
 map("n", "<C-q>", ":x<CR>", opts)
 map("i", "<C-q>", ":x<CR>", opts)
 -- 快速强制退出
+-- exit without writing buffer
 map("n", "<A-q>", ":q!<CR>", opts)
 map("i", "<A-q>", ":q!<CR>", opts)
 -- 快速保存
+-- write buffer
 map("n", "<C-s>", ":w<CR>", opts)
 map("i", "<C-s>", ":w<CR>", opts)
 -- 快速移动
+-- fast moving
 map("n", "<C-k>", "5k", opts)
 map("n", "<C-j>", "5j", opts)
-map("n", "H", "^", opts)
+-- Move to the start/end of the line
+map("n", "H", "0", opts)
 map("n", "L", "$", opts)
+
+-- Move to the end of line in the INSERT MODE,
+-- really helpful when editting in a '', (), [] etc...
+map("i", "<CAPS-d>", "<A-S-a>", opts)
 
 -- Fast split window and start a terminal
 -- with a set height
-map("n", "<A-t>", ":split | resize 20 | term", opts)
+map("n", "<C-t>", ":split | resize 20 | term<CR>", opts)
 
 --map("n", "<CR><LEADER>", ":nohlsearch<CR>", opts)
+
 
 -- NERDTree Key Mappings
 map("n", "<LEADER>n", ":NERDTreeFocus<CR>", opts)
