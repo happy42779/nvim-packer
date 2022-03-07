@@ -69,4 +69,30 @@ return require('packer').startup(function()
 		end
 	}
 
+	use {
+		'numToStr/Comment.nvim',
+		config = function()
+			require("Comment").setup()
+		end
+	}
+
+	use {
+		'goolord/alpha-nvim',
+		config = function()
+			require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+		end
+	}	
+
+	use { 'tami5/lspsaga.nvim',
+		config = function()
+			require("plugins.lspsaga")
+		end
+	}
+
+	-- use { 'akinsho/toggleterm.nvim', 
+	-- 	config = function()
+	-- 		require('plugins.toggleterm')
+	-- 	end
+	-- }
+
 end)

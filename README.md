@@ -4,6 +4,15 @@
 - Clone this git into `~/.config` folder: 
 	`git clone https://github.com/happy42779/nvim.git`
 
+## Prerequisition
+`npm`, `yarn` are needed to install some packages.
+
+Macos: 
++ iTerm2
++ patched font, such as, `Source Code Pro, Hacked Nerd Font`
++ colorschemes for iTerm2, `Solarized`
+
+
 ## Configuration
 There's no need to configure every plugin again, but installing some of the dependents needed by several plugins is necessary.
 ```
@@ -30,7 +39,7 @@ Terminal: `Preferences` -> `Profiles` -> `Keyboard` -> check `Use Option as Meta
 
 For other key mappings, please refer to `mappings.lua`. 
 
-## Manuals
+## Mannuals
 Directory of `nvim` should look like this.
 ```md
 -nvim
