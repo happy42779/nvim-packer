@@ -1,13 +1,13 @@
--- defining a lua function to remap keys 
-local function map(mode, lhs, rhs, opts)
+		-- defining a lua function to remap keys 
+		local function map(mode, lhs, rhs, opts)
 	local options = {noremap = true}
 	if opts then
 		options = vim.tbl_extend("force", options, opts)
 	end
 	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
--- setting the leader key to ';'
-vim.g.mapleader = " "
+	-- setting the leader key to ';'
+	vim.g.mapleader = " "
 
 --- neovim Key Mappings
 -- 快速左右分屏，并进入到命令模式，等待输入文件名
@@ -30,8 +30,8 @@ map("n", "<C-s>", ":w<CR>", opts)
 map("i", "<C-s>", "<ESC>:w<CR>", opts)
 -- 快速移动
 -- fast moving
-map("n", "<C-k>", "5k", opts)
-map("n", "<C-j>", "5j", opts)
+-- map("n", "<C-k>", "5k", opts)
+-- map("n", "<C-j>", "5j", opts)
 -- Move to the start/end of the line
 map("n", "H", "0", opts)
 map("n", "L", "$", opts)
@@ -40,6 +40,12 @@ map("n", "L", "$", opts)
 -- really helpful when editting in a '', (), [] etc...
 map("i", "<A-d>", "<End>", opts)
 map("i", "<A-a>", "<Home>", opts)
+
+-- Fast moving between windows
+map("n", "<C-h>", "<C-w>h", opts)
+map("n", "<C-l>", "<C-w>l", opts)
+map("n", "<C-j>", "<C-w>j", opts)
+map("n", "<C-k>", "<C-w>k", opts)
 
 -- Fast split window and start a terminal
 -- with a set height
@@ -71,3 +77,4 @@ map("n", "<A-6>", ":BufferLineGoToBuffer 6<CR>", {silent = true})
 map("n", "<A-7>", ":BufferLineGoToBuffer 7<CR>", {silent = true}) 
 map("n", "<A-8>", ":BufferLineGoToBuffer 8<CR>", {silent = true}) 
 map("n", "<A-9>", ":BufferLineGoToBuffer 9<CR>", {silent = true}) 
+

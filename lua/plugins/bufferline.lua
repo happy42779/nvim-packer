@@ -1,8 +1,11 @@
 require('bufferline').setup {
   options = {
 	numbers = function(opts)
-	    return string.format('%s.%s', opts.lower(opts.id), opts.lower(opts.ordinal))
-	  end,
+		-- return string.format('%s|%s.)', opts.id, opts.raise(opts.ordinal))
+		return string.format('%s·%s', opts.raise(opts.id), opts.lower(opts.ordinal))
+
+	   -- return string.format('%s.%s', opts.lower(opts.id), opts.lower(opts.ordinal))
+	end,
     max_name_length = 18,
     max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
     tab_size = 18,
@@ -39,7 +42,7 @@ require('bufferline').setup {
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     -- can also be a table containing 2 custom separators
     -- [focused and unfocused]. eg: { '|', '|' }
-    separator_style = "slant",
+    separator_style = "thin",
     enforce_regular_tabs = false,
     always_show_bufferline = true,
     sort_by = 'id'
