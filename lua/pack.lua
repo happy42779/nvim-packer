@@ -88,11 +88,4 @@ return require('packer').startup(function()
 			require("plugins.lspsaga")
 		end
 	}
-
-	-- use { 'akinsho/toggleterm.nvim', 
-	-- 	config = function()
-	-- 		require('plugins.toggleterm')
-	-- 	end
-	-- }
-
 end)
