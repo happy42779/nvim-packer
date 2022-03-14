@@ -88,4 +88,10 @@ return require('packer').startup(function()
 			require("plugins.lspsaga")
 		end
 	}
+
+	use { 'mfussenegger/nvim-dap',
+		config = function ()
+			require("plugins.dap")
+		end
+	}
 end)
