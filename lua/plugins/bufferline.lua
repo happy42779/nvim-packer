@@ -1,5 +1,6 @@
 require('bufferline').setup {
   options = {
+--	  mode = "buffers",
 	numbers = function(opts)
 		-- return string.format('%s|%s.)', opts.id, opts.raise(opts.ordinal))
 		return string.format('%s·%s', opts.raise(opts.id), opts.lower(opts.ordinal))
@@ -26,7 +27,7 @@ require('bufferline').setup {
       end
       -- filter out based on arbitrary rules
       -- e.g. filter out vim wiki buffer from tabline in your work repo
-      if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
+      if vim.fn.getcwd() == "<work-repo>" and _ENV["vim s"].bo[buf_number].filetype ~= "wiki" then
         return true
       end
       -- filter out by it's index number in list (don't show first buffer)

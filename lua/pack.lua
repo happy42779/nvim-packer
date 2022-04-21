@@ -3,6 +3,13 @@
 -- the config will be located under 'plugins' folder
 -- with the same name to the specific plugin
 
+-- Bootstrapping snippet from github README 
+-- to automatically install packer.nvim on a new machine.
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+	PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
 
 -- set packer to automatically compile whenever this
 -- file is modified
@@ -13,56 +20,83 @@ vim.cmd([[
 	augroup end
 ]])
 
+-- elegant way to avoid error, when nothing is installed
+local status_ok, packer = pcall(require, 'packer')
+if not status_ok then
+	return
+end
+
 --------------------------------------------------
 return require('packer').startup(function()
 	--- managing itself ---
 	use 'wbthomason/packer.nvim'
 
-	use	{'neovim/nvim-lspconfig', 
+	use	{'neovim/nvim-lspconfig',
 		config = function()
-			require('plugins.lspconfig')
+			require('plugins.lspserver.lspconfig')
 		end
 	}
+	-- use 'nvim-lsp-installer' -- isolated
+	use {
+		'ray-x/lsp_signature.nvim',
+		config = function ()
+			require('plugins.lspserver.signature')
+		end
+	}
+
+	-- completions 
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-cmdline'
 	use 'saadparwaiz1/cmp_luasnip'
 	use 'L3MON4D3/LuaSnip'
-	use { 'hrsh7th/nvim-cmp', 
+	use { 'hrsh7th/nvim-cmp',
 		config = function()
 			require('plugins.cmp')
 		end
 	}
+	use 'lukas-reineke/cmp-rg'
 
+	-- treesitters
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use 'nvim-treesitter/nvim-treesitter-textobjects'
+	use 'romgrk/nvim-treesitter-context'
 
 	use	{ 'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install' }
 
-	use 'preservim/nerdtree'
+	-- nerd tree
+	use {
+		'kyazdani42/nvim-tree.lua',
+		requires = { 'kyazdani42/nvim-web-devicons' },
+		config = function ()
+			require('nvim-tree').setup()
+		end
+	}
 
 	use 'folke/tokyonight.nvim'
-	
+
 	use  { 'windwp/nvim-autopairs',
 		config = function()
 			require('plugins.autopairs')
 		end
 	}
-	
+
 	use {
-		'nvim-lualine/lualine.nvim', 
+		'nvim-lualine/lualine.nvim',
 		requires = { 'kyazdani42/nvim-web-devicons' },
 		config = function()
 			require('plugins.lualine')
 		end
 	}
 
+	-- telescope, file finder & explorer
 	use {
 	  'nvim-telescope/telescope.nvim',
 	  requires = {'nvim-lua/plenary.nvim'}
 	}
-	
-	use { 'akinsho/bufferline.nvim', 
+
+	use { 'akinsho/bufferline.nvim',
 		requires = { 'kyazdani42/nvim-web-devicons' },
 		config = function()
 			require('plugins.bufferline')
@@ -76,22 +110,47 @@ return require('packer').startup(function()
 		end
 	}
 
+	-- greeter
 	use {
 		'goolord/alpha-nvim',
 		config = function()
 			require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
 		end
-	}	
+	}
 
-	use { 'tami5/lspsaga.nvim',
+	use {
+		'tami5/lspsaga.nvim',
 		config = function()
 			require("plugins.lspsaga")
 		end
 	}
 
-	use { 'mfussenegger/nvim-dap',
-		config = function ()
-			require("plugins.dap")
+	-- debugger
+	use {
+		'mfussenegger/nvim-dap',
+		config = function()
+			require("plugins.dap.dapconfig")
 		end
 	}
+	use {
+		"rcarriga/nvim-dap-ui",
+		requires = { "mfussenegger/nvim-dap" },
+		config = function ()
+			require("dapui").setup()
+		end
+	}
+	use {
+		"theHamsta/nvim-dap-virtual-text",
+		config = function ()
+			require("nvim-dap-virtual-text").setup()
+		end
+	}
+
+	-- lua-dev
+	use 'folke/lua-dev.nvim'
+
+	-- code needed for new machine to install packer.nvim automatically
+	if PACKER_BOOTSTRAP then
+		require('packer').sync()
+	end
 end)

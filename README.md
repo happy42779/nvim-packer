@@ -3,8 +3,13 @@
 - Make a folder in your home directory and name it .config if it doesn't exist yet: `mkdir ~/.config`
 - Clone this git into `~/.config` folder: 
 	`git clone https://github.com/happy42779/nvim.git`
-- to begin with installing `packer.nvim` first and then use `:packersync` to install all the plugins.
-
+- to begin with installing `packer.nvim` first and then use `:PackerSync` to install all the plugins.
+	```sh	
+	git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+	# then type:
+	nvim
+	:PackerSync
+	```
 ## Prerequisition
 `npm`, `yarn` are needed to install some packages.
 
@@ -16,18 +21,28 @@ Macos:
 
 ## Configuration
 There's no need to configure every plugin again, but installing some of the dependents needed by several plugins is necessary.
-```
-# LSP 
-# this list could get longer, remember to add to this if there's more
-1. pyright	'npm i -g pyright'
-2. clangd	'npm i -g clangd'
-3. tsserver ''
-4. lua		''
+- nvim-cmp
+	
 
-# Markdown Preview
-This needs `tslib` to be installed, I prefer using `npm i -g tslib` to keep `nvim` folder clean.
+- telescope
 
-```
+	The following dependencies are needed for some functions:
+
+	1. ripgrep: `pacman -S ripgrep`
+	2. fd: `pacman -S fd`
+
+- LSP 
+
+	1. pyright	: 
+	`npm i -g pyright`, `python3 -m pip install --user --upgrade pynvim`
+	2. clangd	: `pacman -S clangd/llvm`
+	3. tsserver : `npm install -g typescript typescript-language-server`
+	4. lua		: follow the guide [here](https://github.com/sumneko/lua-language-server/wiki/Build-and-Run)
+
+- Markdown Preview
+
+	This needs `tslib` to be installed, I prefer using `npm i -g tslib` to keep `nvim` folder clean.
+
 
 ## Mappings
 

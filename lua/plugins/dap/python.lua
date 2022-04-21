@@ -1,14 +1,7 @@
+-- python configuration from dap
+
 local dap = require('dap')
 
---- adapters settings
---
-dap.adapters.python = {
-	type = 'executable';
-	command = '';
-	args = { '-m', 'debugpy.adapters' };
-}
---- adapters configurations
---
 dap.configurations.python = {
 	{
 		type = 'python';
