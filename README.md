@@ -38,6 +38,7 @@ There's no need to configure every plugin again, but installing some of the depe
 	2. clangd	: `pacman -S clangd/llvm`
 	3. tsserver : `npm install -g typescript typescript-language-server`
 	4. lua		: follow the guide [here](https://github.com/sumneko/lua-language-server/wiki/Build-and-Run)
+	> Now this is mananged by a plugins called nvim-lsp-installer
 
 - Markdown Preview
 
@@ -92,3 +93,7 @@ With this said, I basically only use the split window function from tmux, and mo
 - [LSPCONFIG](https://github.com/neovim/nvim-lspconfig)
 - [LSPCONFIG AutoCompletion](https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion)
 - [LSPCONFIG Servers](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+
+
+## Dependencies
+unzip,

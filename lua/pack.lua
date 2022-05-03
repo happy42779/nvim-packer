@@ -31,20 +31,29 @@ return require('packer').startup(function()
 	--- managing itself ---
 	use 'wbthomason/packer.nvim'
 
+	-- LSP settings
 	use	{'neovim/nvim-lspconfig',
 		config = function()
 			require('plugins.lspserver.lspconfig')
 		end
 	}
 	-- use 'nvim-lsp-installer' -- isolated
+	-- use this on instead
+	use 'williamboman/nvim-lsp-installer'
 	use {
 		'ray-x/lsp_signature.nvim',
 		config = function ()
 			require('plugins.lspserver.signature')
 		end
 	}
+	use {
+		'tami5/lspsaga.nvim',
+		config = function()
+			require("plugins.lspsaga")
+		end
+	}
 
-	-- completions 
+	-- completions
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/cmp-path'
@@ -59,7 +68,12 @@ return require('packer').startup(function()
 	use 'lukas-reineke/cmp-rg'
 
 	-- treesitters
-	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use {
+		'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+		config = function ()
+			require('plugins.treesitter')
+		end
+	}
 	use 'nvim-treesitter/nvim-treesitter-textobjects'
 	use 'romgrk/nvim-treesitter-context'
 
@@ -93,7 +107,13 @@ return require('packer').startup(function()
 	-- telescope, file finder & explorer
 	use {
 	  'nvim-telescope/telescope.nvim',
-	  requires = {'nvim-lua/plenary.nvim'}
+	  requires = {
+		  'nvim-lua/plenary.nvim',
+		  'nvim-telescope/telescope-dap.nvim'
+	  },
+	  config = function ()
+		  require('plugins.telescope')
+	  end
 	}
 
 	use { 'akinsho/bufferline.nvim',
@@ -118,12 +138,6 @@ return require('packer').startup(function()
 		end
 	}
 
-	use {
-		'tami5/lspsaga.nvim',
-		config = function()
-			require("plugins.lspsaga")
-		end
-	}
 
 	-- debugger
 	use {
@@ -141,13 +155,33 @@ return require('packer').startup(function()
 	}
 	use {
 		"theHamsta/nvim-dap-virtual-text",
+		requires = { "mfussenegger/nvim-dap" },
 		config = function ()
-			require("nvim-dap-virtual-text").setup()
+			require("plugins.dap.virtual_text")
+			--require("nvim-dap-virtual-text").setup()
+		end
+	}
+
+	-- toggleterm
+	--
+	use {
+		"akinsho/toggleterm.nvim",
+		config = function ()
+			require("plugins.toggleterm")
 		end
 	}
 
 	-- lua-dev
 	use 'folke/lua-dev.nvim'
+
+	-- which key
+	--
+	use {
+		"folke/which-key.nvim",
+		config = function ()
+			require("which-key").setup()
+		end
+	}
 
 	-- code needed for new machine to install packer.nvim automatically
 	if PACKER_BOOTSTRAP then

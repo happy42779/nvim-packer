@@ -12,10 +12,10 @@ end
 --- neovim Key Mappings
 -- 快速左右分屏，并进入到命令模式，等待输入文件名
 -- split screen horizontally
--- map("n", "<LEADER>h", ":vsplit ", opts)
+ map("n", "<LEADER>|", ":vsplit ", opts)
 -- 快速上下分平，并进入到命令模式，等待输入文件名
 -- split screen vertically
--- map("n", "<LEADER>j", ":split ", opts)
+ map("n", "<LEADER>-", ":split ", opts)
 -- 快速退出，有改变就保存，没改变就直接退出
 -- Write and exit if there's buffer, or exit if there's not 
 map("n", "<C-q>", ":x<CR>", opts)
@@ -55,13 +55,15 @@ map("n", "<C-t>", ":split | resize 20 | term<CR>", opts)
 
 
 -- NvimTree Key Mappings
+-- 
 map("n", "<LEADER>n", ":NvimTreeFocus<CR>", opts)
 map("n", "<LEADER>t", ":NvimTreeToggle<CR>", opts)
 -- map("n", "<LEADER>f", ":NvimTreeFind<CR>", opts)
 
 -- MarkdownPreview Key Mappings
-map("n", "<LEADER>p", ":MarkdownPreview<CR>", opts)
-map("n", "<LEADER>s", ":MarkdownPreviewStop<CR>", opts)
+--
+map("n", "<LEADER>mp", ":MarkdownPreview<CR>", opts)
+map("n", "<LEADER>ms", ":MarkdownPreviewStop<CR>", opts)
 
 -- Bufferline Key Mappings
 -- normal mode
@@ -79,17 +81,19 @@ map("n", "<A-8>", ":BufferLineGoToBuffer 8<CR>", {silent = true})
 map("n", "<A-9>", ":BufferLineGoToBuffer 9<CR>", {silent = true})
 
 -- Telescope Key Mappings
+--
 map("", "<leader>ff", ":Telescope find_files<CR>", {silent = true})
 map("", "<leader>fg", ":Telescope live_grep<CR>", {silent = true})
 map("", "<leader>fb", ":Telescope buffers<CR>", {silent = true})
 map("", "<leader>fh", ":Telescope help_tags<CR>", {silent = true})
 
 -- DAP key mappings
+--
 map("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", opts)
 map("n", "<leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<CR>", opts)
 map("n", "<leader>dr", "lua require'dap'.repl.open()<cr>", opts)
 map("n", "<leader>dl", "lua require'dap'.run_last()<CR>", opts)
-map('n', '<F10>', ':lua require"user.dap.dap-util".reload_continue()<CR>', opts)
+map('n', '<leader>0', ':lua require"user.dap.dap-util".reload_continue()<CR>', opts)
 map("n", "<leader>4", ":lua require'dap'.terminate()<CR>", opts)
 map("n", "<leader>5", ":lua require'dap'.continue()<CR>", opts)
 map("n", "<leader>6", ":lua require'dap'.step_over()<CR>", opts)
@@ -98,3 +102,8 @@ map("n", "<leader>8", ":lua require'dap'.step_out()<CR>", opts)
 map("n", "K", ":lua require'dapui'.eval()<CR>", opts)
 map("n", "<leader>dt", ":lua require'dapui'.toggle()<CR>", opts)
 map("n", "<leader>dx", ":lua require'dap'.terminate()<CR>", opts)
+
+
+-- Toggle terminal
+--
+map("n", "<leader>ft", ":ToggleTerm<CR>", opts)

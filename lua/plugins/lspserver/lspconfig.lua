@@ -24,16 +24,17 @@ local on_attach = function(client, bufnr)
   	--vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   	--vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   	--vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  	--vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	--vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   	--vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	-- lspsaga Mappings
 	local map = vim.api.nvim_buf_set_keymap
 	map(0, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {silent = true, noremap = true})
 	map(0, "n", "gR", "<cmd>Lspsaga rename<CR>", {silent = true, noremap = true})
+--	map(0, "x", "gR", "<cmd>Lspsaga rename<CR>", {silent = true, noremap = true})
 	map(0, "n", "gh", "<cmd>Lspsaga lsp_finder<CR>", {silent = true, noremap = true})
 	map(0, "n", "gx", "<cmd>Lspsaga code_action<CR>", {silent = true, noremap = true})
-	map(0, "x", "gx", ":<C-u>Lspsaga range_code_action<CR>", {silent = true, noremap = true})
+	-- map(0, "x", "gx", ":<C-u>Lspsaga range_code_action<CR>", {silent = true, noremap = true})
 	map(0, "n", "K",  "<cmd>Lspsaga hover_doc<CR>", {silent = true, noremap = true})
 	map(0, "n", "ge", "<cmd>Lspsaga show_line_diagnostics<CR>", {silent = true, noremap = true})
 	map(0, "n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", {silent = true, noremap = true})
@@ -41,17 +42,27 @@ local on_attach = function(client, bufnr)
 	map(0, "n", "gs", "<cmd>Lspsaga signature_help<CR>", {silent = true, noremap = true})
 	map(0, "n", "<C-b>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", {})
 	map(0, "n", "<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", {})
-	map(0, "n", "<leader> ", "<cmd>Lspsaga open_floaterm<CR>", {silent = true, noremap = true})
-	--map(0, "t", "<C-\\><C-n>", "<cmd>Lspsaga close_floaterm<CR>", {silent = true, noremap = true})
+	-- map(0, "n", "<leader> ", "<cmd>Lspsaga open_floaterm<CR>", {silent = true, noremap = true})
+	-- map(0, "t", "<C-\\><C-n>", "<cmd>Lspsaga close_floaterm<CR>", {silent = true, noremap = true})
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local lspconfig = require('lspconfig')
+local lsp_installer = require('nvim-lsp-installer')
 
-local servers = {'clangd', 'pyright', 'tsserver', 'sumneko_lua', 'bashls'}
+-- call nvim-lsp-installer.setup() before any server is setup with lspconfig
+require('plugins.lspinstaller')
+
+local servers = {'clangd', 'pyright', 'tsserver', 'sumneko_lua', "bashls"}
 for _, lsp in ipairs(servers) do
+	local server_is_found, server = lsp_installer.get_server(lsp)
+	if server_is_found and not server:is_installed() then
+		print("Installing " .. lsp)
+		server:install()
+	end
+
 	lspconfig[lsp].setup {
 		on_attach = on_attach,
 		capabilities = capabilities,
@@ -60,6 +71,10 @@ for _, lsp in ipairs(servers) do
 		}
 	}
 end
+
+
+-- setting up bashls manually
+
 
 -- Complicated Settings for specific LSP servers
 -- all the specific lsp settings have been put in a file
