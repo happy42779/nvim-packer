@@ -83,7 +83,7 @@ Directory of `nvim` should look like this.
 ```
 
 ## Tmux
-Refer to [this](https://github.com/happy42779/.my-terminal.git) for tmux configuration. Using tmux is great, but here I mainly need it because spliting window in nvim does not work well with the bufferline, so with `tmux` I can easily split screen and mainly keep nvim editting in one single window, or another window, without messing up the display of bufferline.
+Refer to [this](https://github.com/happy42779/.dotfiles.git) for tmux configuration. Using tmux is great, but here I mainly need it because spliting window in nvim does not work well with the bufferline, so with `tmux` I can easily split screen and mainly keep nvim editting in one single window, or another window, without messing up the display of bufferline.
 
 With this said, I basically only use the split window function from tmux, and moving between each windows.
 
@@ -97,3 +97,6 @@ With this said, I basically only use the split window function from tmux, and mo
 
 ## Dependencies
 unzip,
+
+## How to debug
+When there's error, use `:mess` to display the full error message, see if there's syntax errors, typos, or missing dependencies.

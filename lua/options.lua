@@ -21,6 +21,12 @@ set.fileencodings = "utf-8"
 set.termguicolors = true
 set.hidden = true
 
+-- folding
+set.foldmethod = "expr"
+set.foldexpr = "nvim_treesitter#foldexpr()"
+set.foldenable = false
+set.foldlevel = 99
+
 -- markdown preview format settings
 vim.g.mkdp_auto_close = 0
 

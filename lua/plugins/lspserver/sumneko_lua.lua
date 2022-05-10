@@ -1,6 +1,10 @@
+local status_ok, luadev = pcall(require, 'lua_dev')
+if not status_ok then
+	return
+end
 -- sumneko_lua settings
 --
-local luadev = require("lua-dev").setup({
+luadev.setup({
 
 })
 local lspconfig = require("lspconfig")

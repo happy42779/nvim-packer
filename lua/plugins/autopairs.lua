@@ -1,6 +1,8 @@
--- local stauts_ok, npairs = pcall(require, "nvim-autopairs")
--- if not  stauts_ok then 
--- 	return
+local stauts_ok, npairs = pcall(require, "nvim-autopairs")
+if not  stauts_ok then
+	return
+end
+
 local Rule = require("nvim-autopairs.rule")
 local npairs = require("nvim-autopairs")
 local ts_conds = require('nvim-autopairs.ts-conds')
