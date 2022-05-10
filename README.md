@@ -96,7 +96,14 @@ With this said, I basically only use the split window function from tmux, and mo
 
 
 ## Dependencies
-unzip,
+with package manager:
+	unzip, curl, git, fd-find(fd), npm, yarn, 
 
-## How to debug
+with npm:
+	tslib
+
+## How to debug in neovim
 When there's error, use `:mess` to display the full error message, see if there's syntax errors, typos, or missing dependencies.
+
+## DO NOT USE INSTALL.SH
+Do not use install.sh, it's not complete.
