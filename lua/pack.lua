@@ -30,6 +30,8 @@ end
 return require('packer').startup(function()
 	--- managing itself ---
 	use 'wbthomason/packer.nvim'
+	-- startup time
+	use 'dstein64/vim-startuptime'
 
 	-- CORE PLUGINS
 	-- ----------------------------------------
@@ -47,12 +49,12 @@ return require('packer').startup(function()
 			require('plugins.lspserver.signature')
 		end
 	}
-	use {
-		'tami5/lspsaga.nvim',
-		config = function()
-			require("plugins.lspsaga")
-		end
-	}
+	--use {
+	--	'tami5/lspsaga.nvim',
+	--	config = function()
+	--		require("plugins.lspsaga")
+	--	end
+	--}
 	-- completions sources
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
@@ -84,17 +86,26 @@ return require('packer').startup(function()
 	-- UI
 	-- --------------------------
 	use 'folke/tokyonight.nvim'
+	-- tabs
 	use { 'akinsho/bufferline.nvim',
 		requires = { 'kyazdani42/nvim-web-devicons' },
 		config = function()
 			require('plugins.bufferline')
 		end
 	}
+	-- status bar
 	use {
 		'nvim-lualine/lualine.nvim',
 		requires = { 'kyazdani42/nvim-web-devicons' },
 		config = function()
 			require('plugins.lualine')
+		end
+	}
+	-- notifier
+	use {
+		'rcarriga/nvim-notify',
+		config = function ()
+			require('plugins.notify')
 		end
 	}
 
@@ -105,12 +116,33 @@ return require('packer').startup(function()
 		'nvim-telescope/telescope.nvim',
 		requires = {
 			'nvim-lua/plenary.nvim',
-			'nvim-telescope/telescope-dap.nvim'
 		},
 		config = function()
 			require('plugins.telescope')
 		end
 	}
+	-- search dap-commands, breakpoints
+	use 'nvim-telescope/telescope-dap.nvim'
+	use {
+		'nvim-telescope/telescope-fzf-native.nvim',
+		run = "make"
+	}
+	-- code action?
+	use 'nvim-telescope/telescope-ui-select.nvim'
+	-- advanced grep search
+	use 'nvim-telescope/telescope-live-grep-raw.nvim'
+	-- add bookmarks
+	use 'MattesGroeger/vim-bookmarks'
+	-- search bookmarks
+	use 'tom-anders/telescope-vim-bookmarks.nvim'
+	-- project
+	use {
+		'nvim-telescope/telescope-project.nvim',
+		config = function ()
+			require('plugins.project')
+		end
+	}
+
 	-- nerd tree
 	use {
 		'kyazdani42/nvim-tree.lua',
@@ -141,6 +173,7 @@ return require('packer').startup(function()
 	use { 'tpope/vim-repeat' } -- . command enhancement
 	use { 'tpope/vim-surround' } -- fast wrap?
 	use { 'Pocco81/HighStr.nvim' } -- highlight text and even export them
+	-- hopping
 	use {
 		'phaazon/hop.nvim',
 		branch = "v1",
@@ -175,7 +208,14 @@ return require('packer').startup(function()
 	use {
 		'goolord/alpha-nvim',
 		config = function()
-			require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+			require('plugins.alpha')
+		end
+	}
+	-- aerial
+	use {
+		'stevearc/aerial.nvim',
+		config = function()
+			require('plugins.aerial')
 		end
 	}
 

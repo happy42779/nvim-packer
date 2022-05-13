@@ -17,6 +17,8 @@ set.langmenu = "en_US.UTF-8"
 -- set.language message = "zh_CN.UTF-8"
 set.fileencodings = "ucs-bom,utf-8,cp936,gb18030,big5"
 set.fileencodings = "utf-8"
+-- using ftplugin
+set.filetype = "plugin"
 
 set.termguicolors = true
 set.hidden = true

@@ -17,7 +17,7 @@ end
 -- split screen vertically
  map("n", "<LEADER>-", ":split ", opts)
 -- 快速退出，有改变就保存，没改变就直接退出
--- Write and exit if there's buffer, or exit if there's not 
+-- Write and exit if there's buffer, or exit if there's not
 map("n", "<C-q>", ":x<CR>", opts)
 map("i", "<C-q>", "<ESC>:x<CR>", opts)
 -- 快速退出, 用于一切插件打开的窗口退出
@@ -51,12 +51,21 @@ map("n", "<C-k>", "<C-w>k", opts)
 -- with a set height
 map("n", "<C-t>", ":split | resize 20 | term<CR>", opts)
 
---map("n", "<CR><LEADER>", ":nohlsearch<CR>", opts)
+map("n", "<leader> ", ":nohlsearch<CR>", opts)
 
+-- Clang key mappings
+--
+-- map('n', "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
+
+
+-- Fast indent
+--
+--map('n', "<C-,>", "<S-,><cr>", opts)
+--map('n', "<C-.>", "<S-.><cr>", opts)
 
 -- NvimTree Key Mappings
 -- 
-map("n", "<LEADER>n", ":NvimTreeFocus<CR>", opts)
+map("n", "<LEADER>n", ":NvimTreeFindFile<CR>", opts)
 map("n", "<LEADER>t", ":NvimTreeToggle<CR>", opts)
 -- map("n", "<LEADER>f", ":NvimTreeFind<CR>", opts)
 
@@ -67,25 +76,27 @@ map("n", "<LEADER>ms", ":MarkdownPreviewStop<CR>", opts)
 
 -- Bufferline Key Mappings
 -- normal mode
-map("n", "<A-,>", ":BufferLineCyclePrev<CR>", {silent = true})
-map("n", "<A-.>", ":BufferLineCycleNext<CR>", {silent = true})
-map("n", "<A-w>", ":bdelete!<CR>", {silent = true})
-map("n", "<A-1>", ":BufferLineGoToBuffer 1<CR>", {silent = true})
-map("n", "<A-2>", ":BufferLineGoToBuffer 2<CR>", {silent = true})
-map("n", "<A-3>", ":BufferLineGoToBuffer 3<CR>", {silent = true})
-map("n", "<A-4>", ":BufferLineGoToBuffer 4<CR>", {silent = true})
-map("n", "<A-5>", ":BufferLineGoToBuffer 5<CR>", {silent = true})
-map("n", "<A-6>", ":BufferLineGoToBuffer 6<CR>", {silent = true})
-map("n", "<A-7>", ":BufferLineGoToBuffer 7<CR>", {silent = true})
-map("n", "<A-8>", ":BufferLineGoToBuffer 8<CR>", {silent = true})
-map("n", "<A-9>", ":BufferLineGoToBuffer 9<CR>", {silent = true})
+map("n", "<A-,>", ":BufferLineCyclePrev<CR>", opts)
+map("n", "<A-.>", ":BufferLineCycleNext<CR>", opts)
+map("n", "<A-w>", ":bdelete!<CR>", opts)
+map("n", "<A-1>", ":BufferLineGoToBuffer 1<CR>", opts)
+map("n", "<A-2>", ":BufferLineGoToBuffer 2<CR>", opts)
+map("n", "<A-3>", ":BufferLineGoToBuffer 3<CR>", opts)
+map("n", "<A-4>", ":BufferLineGoToBuffer 4<CR>", opts)
+map("n", "<A-5>", ":BufferLineGoToBuffer 5<CR>", opts)
+map("n", "<A-6>", ":BufferLineGoToBuffer 6<CR>", opts)
+map("n", "<A-7>", ":BufferLineGoToBuffer 7<CR>", opts)
+map("n", "<A-8>", ":BufferLineGoToBuffer 8<CR>", opts)
+map("n", "<A-9>", ":BufferLineGoToBuffer 9<CR>", opts)
 
 -- Telescope Key Mappings
 --
-map("", "<leader>ff", ":Telescope find_files<CR>", {silent = true})
-map("", "<leader>fg", ":Telescope live_grep<CR>", {silent = true})
-map("", "<leader>fb", ":Telescope buffers<CR>", {silent = true})
-map("", "<leader>fh", ":Telescope help_tags<CR>", {silent = true})
+map("n", "<leader>ff", ":Telescope fd<CR>", opts)
+map("n", "<leader>fg", ":Telescope live_grep_raw<CR>", opts)
+map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
+map("n", "<leader>fp", ":Telescope project<CR>", opts)
+map("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 
 -- DAP key mappings
 --
