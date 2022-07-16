@@ -130,7 +130,7 @@ return require('packer').startup(function()
 	-- code action?
 	use 'nvim-telescope/telescope-ui-select.nvim'
 	-- advanced grep search
-	use 'nvim-telescope/telescope-live-grep-raw.nvim'
+	use 'nvim-telescope/telescope-live-grep-args.nvim'
 	-- add bookmarks
 	use 'MattesGroeger/vim-bookmarks'
 	-- search bookmarks
