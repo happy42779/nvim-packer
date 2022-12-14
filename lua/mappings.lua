@@ -92,7 +92,7 @@ map("n", "<A-9>", ":BufferLineGoToBuffer 9<CR>", opts)
 -- Telescope Key Mappings
 --
 map("n", "<leader>ff", ":Telescope fd<CR>", opts)
-map("n", "<leader>fg", ":Telescope live_grep_raw<CR>", opts)
+map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
 map("n", "<leader>fp", ":Telescope project<CR>", opts)

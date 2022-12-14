@@ -5,7 +5,7 @@
 # unzip, curl, git, fd-find(fd), npm, yarn
 
 PACKMANAGER=''
-PACK=''
+PACKS=''
 while true; do
 	printf "What package manager do you use ? \n1. apt \n2. pacman \n3. homebrew"
 	read -p "Type your choice [1/2/3]: " choice
