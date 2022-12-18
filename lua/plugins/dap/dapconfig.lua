@@ -1,4 +1,8 @@
-local dap = require('dap')
+local status_ok, dap = pcall(require, 'dap')
+if not status_ok then
+	vim.notify("dap not loaded!")
+	return 
+end
 
 --- adapters settings
 --
@@ -13,12 +17,6 @@ dap.adapters.lldb = {
 	command = '/usr/bin/lldb-vscode-11',
 	name = 'lldb'
 }
-
--- adapters configurations
--- configurations has been put into separate files
--- named respectively to the specific language
-require('plugins.dap.cpp')
-require('plugins.dap.python')
 
 
 -- setup dapui configurations
@@ -71,4 +69,9 @@ local dap_signs = {
 vim.fn.sign_define("DapBreakpoint", dap_signs.breakpoint)
 vim.fn.sign_define("DapBreakpointRejected", dap_signs.rejected)
 --vim.fn.sign_define("DapStopped", dap_signs.stopped)
-
+--
+-- adapters configurations
+-- configurations has been put into separate files
+-- named respectively to the specific language
+require('plugins.dap.cpp')
+require('plugins.dap.python')

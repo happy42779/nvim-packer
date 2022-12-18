@@ -104,7 +104,7 @@ map("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", opts)
 map("n", "<leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<CR>", opts)
 map("n", "<leader>dr", "lua require'dap'.repl.open()<cr>", opts)
 map("n", "<leader>dl", "lua require'dap'.run_last()<CR>", opts)
-map('n', '<leader>0', ':lua require"user.dap.dap-util".reload_continue()<CR>', opts)
+-- map('n', '<leader>0', ':lua require'dap'.reload_continue()<CR>', opts)
 map("n", "<leader>4", ":lua require'dap'.terminate()<CR>", opts)
 map("n", "<leader>5", ":lua require'dap'.continue()<CR>", opts)
 map("n", "<leader>6", ":lua require'dap'.step_over()<CR>", opts)
@@ -118,6 +118,7 @@ map("n", "<leader>dx", ":lua require'dap'.terminate()<CR>", opts)
 -- Toggle terminal
 --
 map("n", "<leader>ft", ":ToggleTerm<CR>", opts)
+map("t", "<leader>ft", ":ToggleTerm<CR>", opts)
 
 -- highlight str
 --

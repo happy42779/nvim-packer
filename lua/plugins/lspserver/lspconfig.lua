@@ -1,4 +1,7 @@
-local status_ok, lspconfig = pcall(require, 'lspconfig')
+local status_ok, lspconfig, util, cmp_lsp = pcall(function()
+	return require "lspconfig", require "lspconfig.util", require "cmp_nvim_lsp"
+end)
+
 if not status_ok then
 	return
 end
@@ -70,47 +73,90 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	--
 	-- highlight string under cursor
-	if client.resolved_capabilities.document_highlight then
-		vim.api.nvim_exec(
-			[[
-			augroup lsp_document_hightlight
-				autocmd! * <buffer>
-				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-			augroup END
-			]], false
-		)
-	end
+	-- if client.server_capabilities.document_highlight then
+	-- 	vim.api.nvim_exec(
+	-- 		[[
+	-- 		augroup lsp_document_hightlight
+	-- 			autocmd! * <buffer>
+	-- 			autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+	-- 			autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+	-- 		augroup END
+	-- 		]], false
+	-- 	)
+	-- end
 	-- add outline support for every language
+
 	require("aerial").on_attach(client, bufnr)
 	require("lsp_signature").on_attach()
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-local lsp_installer = require('nvim-lsp-installer')
-
--- call nvim-lsp-installer.setup() before any server is setup with lspconfig
-require('plugins.lspinstaller')
-
-local servers = { 'clangd', 'pyright', 'tsserver', 'sumneko_lua', "bashls" }
-for _, lsp in ipairs(servers) do
-	local server_is_found, server = lsp_installer.get_server(lsp)
-	if server_is_found and not server:is_installed() then
-		print("Installing " .. lsp)
-		server:install()
-	end
-
-	lspconfig[lsp].setup {
-		on_attach = on_attach,
-		capabilities = capabilities,
-		flags = {
-			debounce_text_changes = 150,
-		}
+local capabilities
+do
+	local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = {
+		textDocument = {
+			completion = {
+				completionItem = {
+					snippetSupport = true,
+				},
+			},
+			codeAction = {
+				resolveSupport = {
+					properties = vim.list_extend(default_capabilities.textDocument.codeAction.resolveSupport.properties, {
+						"documentation",
+						"detail",
+						"additionalTextEdits",
+					}),
+				},
+			},
+		},
 	}
 end
+
+util.default_config = vim.tbl_deep_extend("force", util.default_config, {
+	capabilities = vim.tbl_deep_extend(
+		"force",
+		vim.lsp.protocol.make_client_capabilities(),
+		cmp_lsp.default_capabilities(capabilities)
+	),
+})
+
+
+require('plugins.mason')
+require('plugins.mason-lspconfig')
+
+-- require('mason-lspconfig').setup_handlers{
+-- 	function (server_name)
+-- 		require("lspconfig")[server_name].setup{}
+-- 	end,
+-- 	-- ["cssls"] = function ()
+-- 	-- 	require("plugins.lspserver.ccls")
+-- 	-- end,
+-- 	-- ["emmet-ls"] = function ()
+-- 	-- 	require("plugins.lspserver.emmet_ls")
+-- 	-- end,
+-- 
+-- }
+
+-- setting up language servers through	mason-lspconfig, thus
+-- the section below is not needed
+
+--local servers = { 'clangd', 'pyright', 'tsserver', 'sumneko_lua', "bashls", "emmet_ls"}
+--for _, lsp in ipairs(servers) do
+--	local server_is_found, server = lsp_installer.get_server(lsp)
+--	if server_is_found and not server:is_installed() then
+--		print("Installing " .. lsp)
+--		server:install()
+--	end
+--
+--	lspconfig[lsp].setup {
+--		on_attach = on_attach,
+--		capabilities = capabilities,
+--		flags = {
+--			debounce_text_changes = 150,
+--		}
+--	}
+--end
 
 -- Complicated Settings for specific LSP servers
 -- all the specific lsp settings have been put in a file

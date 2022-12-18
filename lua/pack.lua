@@ -38,18 +38,22 @@ return require('packer').startup(function(use)
 	--- managing itself ---
 	use 'wbthomason/packer.nvim'
 	-- startup time
-	use 'dstein64/vim-startuptime'
+	-- use 'dstein64/vim-startuptime'
 
 	-- CORE PLUGINS
 	-- ----------------------------------------
+	-- lsp-installer
+	-- changed to mason.nvim
+	use {
+		'williamboman/mason.nvim',
+		'williamboman/mason-lspconfig.nvim',
+	}
 	-- LSP settings
 	use { 'neovim/nvim-lspconfig',
 		config = function()
 			require('plugins.lspserver.lspconfig')
 		end
 	}
-	-- lsp-installer
-	use 'williamboman/nvim-lsp-installer'
 	use {
 		'ray-x/lsp_signature.nvim',
 		config = function()
