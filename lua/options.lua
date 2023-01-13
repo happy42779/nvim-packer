@@ -34,10 +34,10 @@ vim.g.mkdp_auto_close = 0
 
 --- theme
 -- set.background = "dark"
--- tokynight colorscheme settings
-vim.g.tokyonight_style = "storm"
+-- tokynoight colorscheme settings
+-- vim.g.tokyonight_style = "day"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000"}
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme tokyonight-day]]
 

@@ -116,14 +116,14 @@ map("n", "<leader>dx", ":lua require'dap'.terminate()<CR>", opts)
 
 
 -- Toggle terminal
---
-map("n", "<leader>ft", ":ToggleTerm<CR>", opts)
-map("t", "<leader>ft", ":ToggleTerm<CR>", opts)
+-- ctrl + \ is working even better
+-- map("n", "<leader>ft", ":ToggleTerm<CR>", opts)
+-- map("t", "<leader>ft", ":ToggleTerm<CR>", opts)
 
 -- highlight str
---
-map("v", "<leader>ha", ":<c-u>HSHighlight 1<CR>", {silent = true})
-map("v", "<leader>hr", ":<c-u>HSRmHighlight 1<CR>", {silent = true})
+-- there's error, not knowing why at this time
+--map("v", "<leader>ha", ":<c-u>HSHighlight 1<CR>", {silent = true})
+--map("v", "<leader>hr", ":<c-u>HSRmHighlight 1<CR>", {silent = true})
 
 -- HOPPING
 --

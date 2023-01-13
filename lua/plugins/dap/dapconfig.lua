@@ -18,6 +18,9 @@ dap.adapters.lldb = {
 	name = 'lldb'
 }
 
+-- set the log level
+dap.set_log_level('TRACE')
+
 
 -- setup dapui configurations
 -- dapui will be toggled automatically when

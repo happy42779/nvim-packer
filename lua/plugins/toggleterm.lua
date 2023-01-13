@@ -38,8 +38,8 @@ toggleterm.setup({
     -- the 'curved' border is a custom border type
     -- not natively supported but implemented in this plugin.
     border = 'curved',
-    width = 60,
-    height = 25,
+    width = 120,
+    height = 60,
     winblend = 3,
     highlights = {
       border = "Normal",
