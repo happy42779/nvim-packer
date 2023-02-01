@@ -1,8 +1,45 @@
-local luasnip = require('luasnip')
-local cmp = require('cmp')
+local status_ok, cmp, luasnip = pcall(function ()
+	return require "cmp", require "luasnip"
+end)
+
+if not status_ok then
+	return
+end
+
+-- local luasnip = require('luasnip')
+-- local cmp = require('cmp')
 
 -- setup luasnip to use rafamadirz/friendly-snippets
 require('luasnip.loaders.from_vscode').lazy_load()
+
+-- icons
+local kind_icons ={
+	Text = "",
+  Method = "m",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "",
+  Interface = "",
+  Module = "",
+  Property = "",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = "",
+}
 
 cmp.setup {
 	snippet = {
@@ -11,8 +48,8 @@ cmp.setup {
 		end,
 	},
 	mapping = {
-		['<C-p>'] = cmp.mapping.select_prev_item(),
-		['<C-n>'] = cmp.mapping.select_next_item(),
+		['<C-k>'] = cmp.mapping.select_prev_item(),
+		['<C-j>'] = cmp.mapping.select_next_item(),
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
@@ -40,13 +77,34 @@ cmp.setup {
 			end
 		end,
 	},
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = function (entry, vim_item)
+			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+			vim_item.menu = ({
+				luasnip = "[Snippet]",
+				buffer = "[Buffer]",
+				path = "[Path]",
+				nvim_lsp = "[LSP]"
+			})[entry.source.name]
+			return vim_item
+		end,
+	},
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
 		{ name = 'path' },
 		{ name = 'buffer' },
 		{ name = 'nvim_lsp_signature_help' },
-		{ name = 'treesitter' }
+		{ name = 'treesitter' },
+		{ name ='nvim_lua' }
+	},
+	window = {
+		documentation = cmp.config.window.bordered(),
+	},
+	experimental = {
+		ghost_text = false,
+		native_menu = false,
 	},
 }
 
@@ -64,4 +122,5 @@ cmp.setup.cmdline(':', {
 		{ name = 'cmdline' }
 	})
 })
+
 

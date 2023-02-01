@@ -18,8 +18,7 @@ end
 
 local packet_bootstrap = ensure_packer()
 
--- set packer to automatically compile whenever this
--- file is modified
+-- set packer to automatically compile whenever this file is modified
 vim.cmd([[
 	augroup packer_user_config
 		autocmd!
@@ -54,6 +53,10 @@ return require('packer').startup(function(use)
 			require('plugins.lspserver.lspconfig')
 		end
 	}
+
+	-- try this later
+	-- use { 'neoclide/coc.nvim', branch = 'release' }
+	--
 	use {
 		'ray-x/lsp_signature.nvim',
 		config = function()
@@ -66,11 +69,15 @@ return require('packer').startup(function(use)
 	--		require("plugins.lspsaga")
 	--	end
 	--}
+	--
+	-- ############################# Desolated Completion configuration ################
 	-- completions sources
+	--
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-cmdline'
+	use 'hrsh7th/cmp-nvim-lua'
 	use {
 		'hrsh7th/nvim-cmp',
 		config = function()
@@ -84,9 +91,18 @@ return require('packer').startup(function(use)
 	use 'L3MON4D3/LuaSnip'
 	-- snippets sources
 	use 'rafamadriz/friendly-snippets'
+	--
+	-- ############################# Desolated Completion configuration ################
+	--
+	-- ###################### New completion plugin ## #########################
+	-- use { 'ms-jpq/coq.nvim', branch = 'coq' }
+	-- use { 'ms-jpq/coq.artifacts', branch = 'artifacts'}
+	-- file manager. Configure first, try later
+	-- use {'ms-jpq/chadtree', branch = 'chad', run = 'python3 -m chadtree deps'}
+	--
 	-- treesitters
 	use {
-		'nvim-treesitter/nvim-treesitter', 
+		'nvim-treesitter/nvim-treesitter',
 		run = function()
 			local ts_update = require('nvim-treesitter.install').update({with_sync = true})
 			ts_update()
@@ -101,6 +117,9 @@ return require('packer').startup(function(use)
 	-- UI
 	-- --------------------------
 	use 'folke/tokyonight.nvim'
+	-- Transparent
+	use "xiyaowong/nvim-transparent"
+
 	-- tabs
 	use { 'akinsho/bufferline.nvim',
 		requires = { 'kyazdani42/nvim-web-devicons' },

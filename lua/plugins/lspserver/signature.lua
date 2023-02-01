@@ -11,18 +11,19 @@ local cfg = {
                  -- This setting only take effect in insert mode, it does not affect signature help in normal
                  -- mode, 10 by default
 
-  floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
+  -- floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
 
   floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
   -- will set to true when fully tested, set to false will use whichever side has more space
   -- this setting will be helpful if you do not want the PUM and floating win overlap
 
   floating_window_off_x = 1, -- adjust float windows x position.
-  floating_window_off_y = 1, -- adjust float windows y position.
+  floating_window_off_y = 0, -- adjust float windows y position.
 
 
   fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
-  hint_enable = true, -- virtual hint enable
+  -- hint_enable = true, -- virtual hint enable
+  hint_enable = false, -- virtual hint enable
   hint_prefix = "🐼 ",  -- Panda for parameter
   hint_scheme = "String",
   hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
@@ -49,5 +50,5 @@ local cfg = {
 }
 
 -- recommended:
-require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
+ require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
 

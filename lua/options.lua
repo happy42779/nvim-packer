@@ -39,5 +39,5 @@ vim.g.mkdp_auto_close = 0
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000"}
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-vim.cmd[[colorscheme tokyonight-day]]
+vim.cmd[[colorscheme tokyonight-storm]]
 

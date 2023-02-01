@@ -1,21 +1,20 @@
 -- defining a lua function to remap keys
 local function map(mode, lhs, rhs, opts)
-	local options = {noremap = true}
+	local options = { noremap = true }
 	if opts then
 		options = vim.tbl_extend("force", options, opts)
 	end
 	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-	-- setting the leader key to ';'
-	vim.g.mapleader = ";"
+
+-- setting the leader key to ';'
+vim.g.mapleader = ";"
 
 --- neovim Key Mappings
 -- 快速左右分屏，并进入到命令模式，等待输入文件名
 -- split screen horizontally
- map("n", "<LEADER>|", ":vsplit ", opts)
+map("n", "<LEADER>|", ":vsplit ", opts)
 -- 快速上下分平，并进入到命令模式，等待输入文件名
--- split screen vertically
- map("n", "<LEADER>-", ":split ", opts)
 -- 快速退出，有改变就保存，没改变就直接退出
 -- Write and exit if there's buffer, or exit if there's not
 map("n", "<C-q>", ":x<CR>", opts)
@@ -64,7 +63,7 @@ map("n", "<leader> ", ":nohlsearch<CR>", opts)
 --map('n', "<C-.>", "<S-.><cr>", opts)
 
 -- NvimTree Key Mappings
--- 
+--
 map("n", "<LEADER>n", ":NvimTreeFindFile<CR>", opts)
 map("n", "<LEADER>t", ":NvimTreeToggle<CR>", opts)
 -- map("n", "<LEADER>f", ":NvimTreeFind<CR>", opts)
@@ -125,14 +124,34 @@ map("n", "<leader>dx", ":lua require'dap'.terminate()<CR>", opts)
 --map("v", "<leader>ha", ":<c-u>HSHighlight 1<CR>", {silent = true})
 --map("v", "<leader>hr", ":<c-u>HSRmHighlight 1<CR>", {silent = true})
 
+-- Toggle transparent background
+map("n", "<leader><leader>tr", ":TransparentToggle<CR>", opts)
+
+
 -- HOPPING
 --
-map('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-map('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-map('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-map('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-map('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-map('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+map('n', 'f',
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+	, {})
+map('n', 'F',
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+	, {})
+map('o', 'f',
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+	, {})
+map('o', 'F',
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+	, {})
+
+-- specifying no mode will cause completion conflicting with this keybinding, when typing a word starting with 't'
+-- map('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+-- map('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+map('n', 't',
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+	, {})
+map('n', 'T',
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+	, {})
 
 map('n', "<leader><leader>w", "<cmd>HopWord<CR>", {})
 map('n', "<leader><leader>j", "<cmd>HopLine<CR>", {})
@@ -142,4 +161,3 @@ map('n', "<leader><leader>s", "<cmd>HopChar1<CR>", {})
 -- map('n', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
 -- map('v', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
 -- map('o', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", {})
-
