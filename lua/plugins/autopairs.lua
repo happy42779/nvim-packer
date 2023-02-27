@@ -4,7 +4,6 @@ if not  stauts_ok then
 end
 
 local Rule = require("nvim-autopairs.rule")
-local npairs = require("nvim-autopairs")
 local ts_conds = require('nvim-autopairs.ts-conds')
 local conds = require('nvim-autopairs.conds')
 
@@ -65,7 +64,6 @@ npairs.add_rules({
   	        return opts.prev_char:match('.%]') ~= nil
   	    end)
   	    :use_key(']'),
-
 	-- Rules for => functions in js
   	Rule('%(.*%)%s*%=>$', ' {  }', { 'typescript', 'typescriptreact', 'javascript' })
 		:use_regex(true)
@@ -100,4 +98,4 @@ npairs.add_rules({
         :set_end_pair_length(0)
         :with_move(conds.none())
         :with_del(conds.none())
-})	
+})

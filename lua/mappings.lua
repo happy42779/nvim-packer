@@ -50,7 +50,7 @@ map("n", "<C-k>", "<C-w>k", opts)
 -- with a set height
 map("n", "<C-t>", ":split | resize 20 | term<CR>", opts)
 
-map("n", "<leader> ", ":nohlsearch<CR>", opts)
+map("n", "  ", ":nohlsearch<CR>", opts)
 
 -- Clang key mappings
 --
@@ -95,7 +95,7 @@ map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
 map("n", "<leader>fp", ":Telescope project<CR>", opts)
-map("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
+map("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
 
 -- DAP key mappings
 --
@@ -161,3 +161,8 @@ map('n', "<leader><leader>s", "<cmd>HopChar1<CR>", {})
 -- map('n', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
 -- map('v', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", {})
 -- map('o', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", {})
+--
+
+-- Fast Function Jumper
+-- map('n', "<leader>fn", "<cmd>AerialToggle<CR>", {})
+map('n', "<leader>fn", "<cmd>Telescope aerial<CR>", {})

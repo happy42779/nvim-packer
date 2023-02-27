@@ -6,14 +6,24 @@ end
 local actions = require 'telescope.actions'
 
 -- disable previews binaries
-local previewers = require('telescope.previewers')
-local Job = require('plenary.job')
-local new_marker = function (filepath, bufnr, opts)
-	filepath = vim.fn.expand(filepath)
-	Job:new({
+-- local previewers = require('telescope.previewers')
+--
+-- local Job = require('plenary.job')
+-- local new_maker = function (filepath, bufnr, opts)
+-- 	filepath = vim.fn.expand(filepath)
+-- 	Job:new({
+--
+-- 	})
+-- end
 
-	})
-end
+-- load dap as extension
+telescope.load_extension('dap')
+telescope.load_extension('fzf')
+telescope.load_extension('ui-select')
+-- telescope.load_extension('vim_bookmarks')
+telescope.load_extension('live_grep_args')
+telescope.load_extension('project')
+telescope.load_extension('aerial')
 
 telescope.setup({
 	defaults = {
@@ -95,6 +105,9 @@ telescope.setup({
 			-- theme = "dropdown",
 			previewers = false,
 			find_command = {"fd"},
+		},
+		preview = {
+			binary = false
 		}
 	},
 	['ui-select'] = {
@@ -129,11 +142,3 @@ telescope.setup({
 	}
 })
 
--- load dap as extension
-telescope.load_extension('dap')
-telescope.load_extension('fzf')
-telescope.load_extension('ui-select')
-telescope.load_extension('vim_bookmarks')
-telescope.load_extension('live_grep_args')
-telescope.load_extension('project')
-telescope.load_extension('aerial')

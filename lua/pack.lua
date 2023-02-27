@@ -166,9 +166,9 @@ return require('packer').startup(function(use)
 	-- advanced grep search
 	use 'nvim-telescope/telescope-live-grep-args.nvim'
 	-- add bookmarks
-	use 'MattesGroeger/vim-bookmarks'
+	-- use 'MattesGroeger/vim-bookmarks'
 	-- search bookmarks
-	use 'tom-anders/telescope-vim-bookmarks.nvim'
+	-- use 'tom-anders/telescope-vim-bookmarks.nvim'
 	-- project
 	use {
 		'nvim-telescope/telescope-project.nvim',
@@ -208,14 +208,20 @@ return require('packer').startup(function(use)
 	use { 'tpope/vim-surround' } -- fast wrap?
 	use { 'Pocco81/HighStr.nvim' } -- highlight text and even export them
 	-- hopping
+	-- use {
+	-- 	'phaazon/hop.nvim',
+	-- 	branch = "v1",
+	-- 	config = function()
+	-- 		require('hop').setup({
+	-- 			keys = 'etovxqpdygfblzhckisuran',
+	-- 			jump_on_sole_occurrence = false
+	-- 		})
+	-- 	end
+	-- }
 	use {
-		'phaazon/hop.nvim',
-		branch = "v1",
+		'ggandor/leap.nvim',
 		config = function()
-			require('hop').setup({
-				keys = 'etovxqpdygfblzhckisuran',
-				jump_on_sole_occurrence = false
-			})
+			require('leap').add_default_mappings()
 		end
 	}
 	-- markdown preview
@@ -252,6 +258,17 @@ return require('packer').startup(function(use)
 			require('plugins.aerial')
 		end
 	}
+
+	-- novice
+	-- use {
+	-- 	'folke/noice.nvim',
+	-- 	config = function ()
+	-- 		-- require('noice').setup({
+	-- 		require('plugins.noice').setup({
+	-- 			-- any options here, if needed
+	-- 		})
+	-- 	end
+	-- }
 
 
 	-- DEBUGGER
