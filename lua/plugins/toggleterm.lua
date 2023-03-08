@@ -39,7 +39,7 @@ toggleterm.setup({
     -- not natively supported but implemented in this plugin.
     border = 'curved',
     width = 100,
-    height = 40,
+    height = 30,
     winblend = 3,
     highlights = {
       border = "Normal",

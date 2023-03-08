@@ -5,13 +5,14 @@ end
 
 treesitter.setup{
 	-- A list of parser names, or "all"
-  ensure_installed = { "c", "lua", "cpp", "python", "javascript" },
+  ensure_installed = { "c", "lua", "cpp", "python", "javascript", "vim", "regex", "bash", "markdown", "markdown_inline" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = true,
 
   -- List of parsers to ignore installing (for "all")
   -- ignore_install = { "javascript" },
+  auto_install = true,
 
   highlight = {
     -- `false` will disable the whole extension

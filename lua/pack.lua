@@ -16,7 +16,7 @@ local ensure_packer = function()
 	return false
 end
 
-local packet_bootstrap = ensure_packer()
+local packer_bootstrap = ensure_packer()
 
 -- set packer to automatically compile whenever this file is modified
 vim.cmd([[
@@ -27,10 +27,10 @@ vim.cmd([[
 ]])
 
 -- elegant way to avoid error, when nothing is installed
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-	return
-end
+-- local status_ok, packer = pcall(require, 'packer')
+-- if not status_ok then
+-- 	return
+-- end
 
 --------------------------------------------------
 return require('packer').startup(function(use)
@@ -84,13 +84,21 @@ return require('packer').startup(function(use)
 			require('plugins.cmp')
 		end
 	}
+	-- snippets provider
+	use {
+		'L3MON4D3/LuaSnip',
+		-- snippets sources
+		requires = { 'rafamadriz/friendly-snippets' },
+		config = function()
+			-- require('plugins.luasnip')
+			require('luasnip').setup()
+		end,
+		tag = "v<CurrentMajor>",
+		run = "make install_jsregexp"
+	}
 	use 'saadparwaiz1/cmp_luasnip'
 	use 'lukas-reineke/cmp-rg'
 	use 'folke/lua-dev.nvim'
-	-- snippets provider
-	use 'L3MON4D3/LuaSnip'
-	-- snippets sources
-	use 'rafamadriz/friendly-snippets'
 	--
 	-- ############################# Desolated Completion configuration ################
 	--
@@ -104,7 +112,7 @@ return require('packer').startup(function(use)
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		run = function()
-			local ts_update = require('nvim-treesitter.install').update({with_sync = true})
+			local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
 			ts_update()
 		end,
 		config = function()
@@ -135,13 +143,6 @@ return require('packer').startup(function(use)
 			require('plugins.lualine')
 		end
 	}
-	-- notifier
-	use {
-		'rcarriga/nvim-notify',
-		config = function ()
-			require('plugins.notify')
-		end
-	}
 
 	-- FILE EXPLORER
 	-- -------------------------------------
@@ -170,12 +171,12 @@ return require('packer').startup(function(use)
 	-- search bookmarks
 	-- use 'tom-anders/telescope-vim-bookmarks.nvim'
 	-- project
-	use {
-		'nvim-telescope/telescope-project.nvim',
-		config = function ()
-			require('plugins.project')
-		end
-	}
+	-- use {
+	-- 	'nvim-telescope/telescope-project.nvim',
+	-- 	config = function()
+	-- 		require('plugins.project')
+	-- 	end
+	-- }
 
 	-- nerd tree
 	use {
@@ -252,24 +253,42 @@ return require('packer').startup(function(use)
 		end
 	}
 	-- aerial
-	use {
-		'stevearc/aerial.nvim',
-		config = function()
-			require('plugins.aerial')
-		end
-	}
-
-	-- novice
 	-- use {
-	-- 	'folke/noice.nvim',
-	-- 	config = function ()
-	-- 		-- require('noice').setup({
-	-- 		require('plugins.noice').setup({
-	-- 			-- any options here, if needed
-	-- 		})
+	-- 	'stevearc/aerial.nvim',
+	-- 	config = function()
+	-- 		require('plugins.aerial')
 	-- 	end
 	-- }
 
+	-- nui.nvim
+	use {
+		'MunifTanjim/nui.nvim',
+		-- config = function()
+		-- 	require('nui').setup()
+		-- end
+	}
+
+	-- notifier
+	use {
+		'rcarriga/nvim-notify',
+		config = function()
+			require('plugins.notify')
+		end
+	}
+	--
+	-- novice
+	use {
+		'folke/noice.nvim',
+		config = function()
+			require('noice').setup({
+				-- any options here, if needed
+			})
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify"
+		},
+	}
 
 	-- DEBUGGER
 	-- ----------------------------
