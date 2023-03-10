@@ -109,7 +109,7 @@ map("n", "<leader>fg", ":Telescope live_grep<CR>", {desc = "Telescope live grep"
 map("n", "<leader>fb", ":Telescope buffers<CR>", {desc = "Telescope find buffer"})
 -- map("n", "<leader>fh", ":Telescope help_tags<CR>", {desc = "Telescope help tags"})
 -- map("n", "<leader>fp", ":Telescope project<CR>", {desc = "Telescope project"})
--- map('n', "<leader>fn", "<cmd>Telescope aerial<CR>", {})
+map('n', "<leader>fn", "<cmd>Telescope aerial<CR>", {})
 map('n', "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", {desc = "Telescope find symbol"})
 -- map("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
 

@@ -93,7 +93,7 @@ return require('packer').startup(function(use)
 			-- require('plugins.luasnip')
 			require('luasnip').setup()
 		end,
-		tag = "v<CurrentMajor>",
+		tag = "v<CurrentMajor>.*",
 		run = "make install_jsregexp"
 	}
 	use 'saadparwaiz1/cmp_luasnip'
@@ -253,19 +253,16 @@ return require('packer').startup(function(use)
 		end
 	}
 	-- aerial
-	-- use {
-	-- 	'stevearc/aerial.nvim',
-	-- 	config = function()
-	-- 		require('plugins.aerial')
-	-- 	end
-	-- }
+	use {
+		'stevearc/aerial.nvim',
+		config = function()
+			require('plugins.aerial')
+		end
+	}
 
 	-- nui.nvim
 	use {
 		'MunifTanjim/nui.nvim',
-		-- config = function()
-		-- 	require('nui').setup()
-		-- end
 	}
 
 	-- notifier

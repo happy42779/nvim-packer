@@ -23,11 +23,11 @@ telescope.load_extension('ui-select')
 -- telescope.load_extension('vim_bookmarks')
 telescope.load_extension('live_grep_args')
 -- telescope.load_extension('project')
--- telescope.load_extension('aerial')
+telescope.load_extension('aerial')
 
 telescope.setup({
 	defaults = {
-		buffer_previewr_maker = new_maker,
+		-- buffer_previewr_maker = new_maker,
 
 		prompt_prefix = " ",
 		selection_caret = " ",
@@ -132,12 +132,12 @@ telescope.setup({
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			-- the default case_mode is "smart_case"
 		},
-		-- aerial = {
-		-- 	show_nesting = {
-		-- 		['_'] = false,
-		-- 		json = true,
-		-- 		yaml = true
-		-- 	}
-		-- }
+		aerial = {
+			show_nesting = {
+				['_'] = false,
+				json = true,
+				yaml = true
+			}
+		}
 	}
 })
