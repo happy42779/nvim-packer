@@ -1,9 +1,6 @@
 ---- loading plugins through packer(plugins.lua) 
-require('pack')
-require('options')
--- require('autocmds')
-require('mappings')
+require('config.lazy')
+require('config.options')
+require('config.autocmds')
+require('config.mappings')
 
--- require('plugins.autopairs')
--- require('plugins.lualine')
--- require('plugins.lspconfig')

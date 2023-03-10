@@ -31,6 +31,8 @@ set.foldlevel = 99
 
 -- markdown preview format settings
 vim.g.mkdp_auto_close = 0
+-- disable preview of binary type
+-- vim.g.telescope_previewer_disable = {}
 
 --- theme
 -- set.background = "dark"

@@ -144,7 +144,7 @@ mason_lspconf.setup({
 })
 mason_lspconf.setup_handlers({
 	function(server_name)
-		require("lspconfig")[server_name].setup {
+		lspconfig[server_name].setup {
 			on_attach = on_attach,
 			capabilities = cmp_lsp.default_capabilities()
 		}

@@ -17,7 +17,7 @@ local actions = require 'telescope.actions'
 -- end
 
 -- load dap as extension
-telescope.load_extension('dap')
+-- telescope.load_extension('dap')
 telescope.load_extension('fzf')
 telescope.load_extension('ui-select')
 -- telescope.load_extension('vim_bookmarks')

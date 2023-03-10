@@ -89,10 +89,10 @@ return require('packer').startup(function(use)
 		'L3MON4D3/LuaSnip',
 		-- snippets sources
 		requires = { 'rafamadriz/friendly-snippets' },
-		config = function()
-			-- require('plugins.luasnip')
-			require('luasnip').setup()
-		end,
+		-- config = function()
+		-- 	-- require('plugins.luasnip')
+		-- 	require('luasnip').setup()
+		-- end,
 		tag = "v<CurrentMajor>.*",
 		run = "make install_jsregexp"
 	}
