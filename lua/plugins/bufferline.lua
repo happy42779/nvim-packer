@@ -40,7 +40,7 @@ bufferline.setup {
 		-- 		return true
 		-- 	end
 		-- end,
-		offsets = { { filetype = "nvimtree", text = "file explorer", highlight = "Directory", text_align = "left" } },
+		offsets = { { filetype = "neo-tree", text = "file explorer", highlight = "Directory", text_align = "left" } },
 		-- show_buffer_icons = true,
 		-- show_buffer_close_icons = true,
 		-- show_close_icon = true,

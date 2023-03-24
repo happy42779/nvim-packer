@@ -1,31 +1,52 @@
---- These are NVIM Editor related settings, 
+--- These are NVIM Editor related settings,
 -- all plugins related settings should go under the folder `plugins`
 -- but there are some exceptions here as they are farely simple
 --
---Basic Settings 
+--Basic Settings
 local set = vim.opt
+
 set.number = true
+set.clipboard = "unnamedplus" -- sync with system clipboard
+set.confirm = true
+set.cursorline = true
+set.formatoptions = "jcroqlnt"
+set.grepformat = "%f:%l:%c:%m"
+set.grepprg = "rg --vimgrep"
 set.relativenumber = true
-set.mouse= "a"
+set.showmode = false
+set.mouse = "a"
 set.autoindent = true
-set.tabstop=4
-set.shiftwidth=4
+set.smartindent = true
+set.tabstop = 4
+set.shiftwidth = 4
 set.smarttab = true
 set.softtabstop = 4
 set.encoding = "UTF-8"
 set.langmenu = "en_US.UTF-8"
 -- set.language message = "zh_CN.UTF-8"
 set.fileencodings = "ucs-bom,utf-8,cp936,gb18030,big5"
-set.fileencodings = "utf-8"
 -- using ftplugin
 set.filetype = "plugin"
 
+-- whitespaces / indents
+set.list = true
+set.listchars:append("eol:↴")
+set.listchars:append("space:⋅")
+
 set.termguicolors = true
-set.hidden = true
+-- set.hidden = true
+-- set neovim to be transparent
+-- this is the example given by ThePrimagen
+function ColorMyPencils()
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
+ColorMyPencils()
 
 -- folding
-set.foldmethod = "expr"
-set.foldexpr = "nvim_treesitter#foldexpr()"
+-- set.foldmethod = "expr"
+-- set.foldexpr = "nvim_treesitter#foldexpr()"
 set.foldenable = false
 set.foldlevel = 99
 
@@ -37,9 +58,8 @@ vim.g.mkdp_auto_close = 0
 --- theme
 -- set.background = "dark"
 -- tokynoight colorscheme settings
--- vim.g.tokyonight_style = "day"
-vim.g.tokyonight_italic_functions = true
-vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000"}
-vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-vim.cmd[[colorscheme tokyonight-storm]]
-
+-- vim.g.tokyonight_italic_functions = true
+-- vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000"}
+-- vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+-- vim.cmd[[colorscheme catppuccin-mocchiato]]
+-- vim.cmd.colorscheme "tokyonight-moon"

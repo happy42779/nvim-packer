@@ -1,5 +1,6 @@
-local status_ok, lspconfig, mason_lspconf, util, cmp_lsp = pcall(function()
-	return require "lspconfig", require "mason-lspconfig", require "lspconfig.util", require "cmp_nvim_lsp"
+local status_ok, lspconfig, mason_lspconf, util, cmp_lsp, null_ls = pcall(function()
+	return require "lspconfig", require "mason-lspconfig", require "lspconfig.util", require "cmp_nvim_lsp",
+	require "null-ls"
 end)
 if not status_ok then
 	return
@@ -9,9 +10,9 @@ end
 --
 local signs = {
 	{ name = "DiagnosticSignError", text = "" },
-	{ name = "DiagnosticSignWarn", text = "" },
-	{ name = "DiagnosticSignHint", text = "" },
-	{ name = "DiagnosticSignInfo", text = "" },
+	{ name = "DiagnosticSignWarn",  text = "" },
+	{ name = "DiagnosticSignHint",  text = "" },
+	{ name = "DiagnosticSignInfo",  text = "" },
 }
 for _, sign in ipairs(signs) do
 	vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
@@ -91,9 +92,9 @@ local on_attach = function(client, bufnr)
 	-- end
 	-- add outline support for every language
 
-	-- not needed anymore
+	-- not needed anymore? why
 	--require("aerial").on_attach(client, bufnr)
-	require("lsp_signature").on_attach()
+	-- require("lsp_signature").on_attach()
 end
 
 local capabilities
@@ -108,7 +109,8 @@ do
 			},
 			codeAction = {
 				resolveSupport = {
-					properties = vim.list_extend(default_capabilities.textDocument.codeAction.resolveSupport.properties, {
+					properties = vim.list_extend(default_capabilities.textDocument.codeAction.resolveSupport.properties,
+					{
 						"documentation",
 						"detail",
 						"additionalTextEdits",
@@ -139,8 +141,8 @@ require('plugins.mason')
 -- for each language server
 
 mason_lspconf.setup({
-	ensured_installed = { 'clangd', 'ccls', 'bashls', 'eslint', 'emmet_ls' },
-	automatic_installation = true;
+	ensured_installed = { 'clangd', 'ccls', 'bashls', 'eslint', 'emmet_ls', 'pyright' },
+	automatic_installation = true,
 })
 mason_lspconf.setup_handlers({
 	function(server_name)
@@ -150,6 +152,12 @@ mason_lspconf.setup_handlers({
 		}
 	end,
 })
+
+-- null-ls
+-- null_ls.setup({
+-- 	on_attach = on_attach
+-- })
+--
 
 -- setting up language servers through	mason-lspconfig, thus
 -- the section below is not needed
