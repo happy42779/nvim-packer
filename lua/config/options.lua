@@ -9,7 +9,9 @@ set.number = true
 set.clipboard = "unnamedplus" -- sync with system clipboard
 set.confirm = true
 set.cursorline = true
-set.formatoptions = "jcroqlnt"
+-- set.formatoptions = "jcroqlnt"
+set.formatoptions = "jcrqlnt"
+
 set.grepformat = "%f:%l:%c:%m"
 set.grepprg = "rg --vimgrep"
 set.relativenumber = true
@@ -34,26 +36,18 @@ set.listchars:append("eol:↴")
 set.listchars:append("space:⋅")
 
 set.termguicolors = true
--- set.hidden = true
--- set neovim to be transparent
--- this is the example given by ThePrimagen
-function ColorMyPencils()
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-end
-
-ColorMyPencils()
 
 -- folding
 -- set.foldmethod = "expr"
--- set.foldexpr = "nvim_treesitter#foldexpr()"
-set.foldenable = false
+set.foldcolumn = "1"
 set.foldlevel = 99
+set.foldlevelstart = 99
+-- set.foldexpr = "nvim_treesitter#foldexpr()"
+set.foldenable = true
 
 -- markdown preview format settings
-vim.g.mkdp_auto_close = 0
+-- vim.g.mkdp_auto_close = 0 -- move this line to setup of plugin
 -- disable preview of binary type
--- vim.g.telescope_previewer_disable = {}
 
 --- theme
 -- set.background = "dark"

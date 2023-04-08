@@ -1,7 +1,11 @@
-local status_ok, lspconfig, mason_lspconf, util, cmp_lsp, null_ls = pcall(function()
-	return require "lspconfig", require "mason-lspconfig", require "lspconfig.util", require "cmp_nvim_lsp",
-	require "null-ls"
+local status_ok, lspconfig, mason_lspconf, util, cmp_lsp, _null_ls = pcall(function()
+	return require("lspconfig"),
+		require("mason-lspconfig"),
+		require("lspconfig.util"),
+		require("cmp_nvim_lsp"),
+		require("null-ls")
 end)
+
 if not status_ok then
 	return
 end
@@ -19,7 +23,7 @@ for _, sign in ipairs(signs) do
 end
 
 local config = {
-	virtual_text = false,
+	virtual_text = true,
 	--signs = {
 	--	active = signs,
 	--},
@@ -33,7 +37,7 @@ local config = {
 		source = "always",
 		header = "",
 		prefix = "",
-	}
+	},
 }
 
 vim.diagnostic.config(config)
@@ -41,41 +45,40 @@ vim.diagnostic.config(config)
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']e', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, opts)
+vim.keymap.set("n", "]e", vim.diagnostic.goto_next, opts)
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
-	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, bufopts)
-	vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-	vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-	vim.keymap.set('n', '<space>wl', function()
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+	vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, bufopts)
+	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+	vim.keymap.set("n", "<space>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
-	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+	-- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+	vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
 
-	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', '<space>f', function()
-		vim.lsp.buf.format { async = true }
+	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+	vim.keymap.set("n", "<space>f", function()
+		vim.lsp.buf.format({ async = true })
 	end, bufopts)
 	--
 	-- highlight string under cursor
@@ -100,6 +103,10 @@ end
 local capabilities
 do
 	local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+	-- default_capabilities.textDocument.foldingRange = {
+	-- 	dynamicRegistration = false,
+	-- 	lineFoldingOnly = true,
+	-- }
 	capabilities = {
 		textDocument = {
 			completion = {
@@ -129,8 +136,7 @@ util.default_config = vim.tbl_deep_extend("force", util.default_config, {
 	),
 })
 
-
-require('plugins.mason')
+require("plugins.mason")
 
 -- Settings has been moved here, so no need to put
 -- configs in a file
@@ -141,15 +147,15 @@ require('plugins.mason')
 -- for each language server
 
 mason_lspconf.setup({
-	ensured_installed = { 'clangd', 'ccls', 'bashls', 'eslint', 'emmet_ls', 'pyright' },
+	ensured_installed = { "clangd", "ccls", "bashls", "eslint", "emmet_ls", "pyright" },
 	automatic_installation = true,
 })
 mason_lspconf.setup_handlers({
 	function(server_name)
-		lspconfig[server_name].setup {
+		lspconfig[server_name].setup({
 			on_attach = on_attach,
-			capabilities = cmp_lsp.default_capabilities()
-		}
+			capabilities = cmp_lsp.default_capabilities(),
+		})
 	end,
 })
 
@@ -158,27 +164,3 @@ mason_lspconf.setup_handlers({
 -- 	on_attach = on_attach
 -- })
 --
-
--- setting up language servers through	mason-lspconfig, thus
--- the section below is not needed
-
---local servers = { 'clangd', 'pyright', 'tsserver', 'sumneko_lua', "bashls", "emmet_ls"}
---for _, lsp in ipairs(servers) do
---	local server_is_found, server = lsp_installer.get_server(lsp)
---	if server_is_found and not server:is_installed() then
---		print("Installing " .. lsp)
---		server:install()
---	end
---
---	lspconfig[lsp].setup {
---		on_attach = on_attach,
---		capabilities = capabilities,
---		flags = {
---			debounce_text_changes = 150,
---		}
---	}
---end
-
--- Complicated Settings for specific LSP servers
--- all the specific lsp settings have been put in a file
--- respectively named to the language

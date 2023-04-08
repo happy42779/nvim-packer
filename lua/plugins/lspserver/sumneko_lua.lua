@@ -1,4 +1,4 @@
-local status_ok, luadev = pcall(require, 'lua_dev')
+--[[ local status_ok, luadev = pcall(require, 'lua_dev')
 if not status_ok then
 	return
 end
@@ -37,4 +37,4 @@ lspconfig.sumneko_lua.setup {
     },
   },
 }
-
+]]

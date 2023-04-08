@@ -4,102 +4,86 @@ if not status_ok then
 end
 
 local actions = require("telescope.actions")
+local action_layout = require("telescope.actions.layout")
+local Job = require("plenary.job")
 
 -- disable previews binaries
--- local previewers = require('telescope.previewers')
---
--- local Job = require('plenary.job')
--- local new_maker = function (filepath, bufnr, opts)
--- 	filepath = vim.fn.expand(filepath)
--- 	Job:new({
---
--- 	})
--- end
+local previewers = require("telescope.previewers")
+local _bad = { ".*%.csv", ".*%.lua" }
+local bad_files = function(filepath)
+	for _, v in ipairs(_bad) do
+		if filepath:match(v) then
+			return false
+		end
+	end
+	return true
+end
 
--- load dap as extension
--- telescope.load_extension('dap')
-telescope.load_extension("fzf")
-telescope.load_extension("ui-select")
--- telescope.load_extension('vim_bookmarks')
-telescope.load_extension("live_grep_args")
--- telescope.load_extension('project')
-telescope.load_extension("aerial")
+local new_maker = function(filepath, bufnr, opts)
+	-- disable highlighting for certain files
+	opts = opts or {}
+	if opts.use_ft_detect == nil then
+		opts.use_ft_detect = true
+	end
+	opts.use_ft_detect = opts.use_ft_detect == false and false or bad_files(filepath)
+	previewers.buffer_previewer_maker(filepath, bufnr, opts)
+	-- disable previewers of binary
+	filepath = vim.fn.expand(filepath)
+	Job:new({
+		command = "file",
+		args = { "--mime-type", "-b", filepath },
+		on_exit = function(j)
+			local mime_type = vim.split(j:result()[1], "/")[1]
+			if mime_type == "text" then
+				previewers.buffer_previewer_maker(filepath, bufnr, opts)
+			else
+				vim.schedule(function()
+					vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+				end)
+			end
+		end,
+	}):sync()
+end
 
 telescope.setup({
 	defaults = {
-		-- buffer_previewr_maker = new_maker,
-
-		prompt_prefix = " ",
-		selection_caret = " ",
-		path_display = {
-			shorten = {
-				len = 3,
-				exclude = { 1, -1 },
+		buffer_previewr_maker = new_maker,
+		-- prompt_prefix = " ",
+		-- selection_caret = " ",
+		-- path_display = {
+		--     shorten = {
+		--         len = 3,
+		--         exclude = { 1, -1 },
+		--     },
+		-- },
+		mappings = {
+			i = {
+				["<M-q>"] = actions.close,
+				["<C-j>"] = actions.move_selection_next,
+				["<C-k>"] = actions.move_selection_previous,
+				["<C-u>"] = false,
+				-- ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
+				["<M-p>"] = action_layout.toggle_preview,
 			},
-		},
-	},
-	mappings = {
-		i = {
-			["<C-n>"] = actions.cycle_history_next,
-			["<C-p>"] = actions.cycle_history_prev,
-			["<C-j>"] = actions.move_selection_next,
-			["<C-k>"] = actions.move_selection_previous,
-			["<C-c>"] = actions.close,
-			["<Down>"] = actions.move_selection_next,
-			["<Up>"] = actions.move_selection_previous,
-			["<CR>"] = actions.select_default,
-			["<C-x>"] = actions.select_horizontal,
-			["<C-v>"] = actions.select_vertical,
-			["<C-t>"] = actions.select_tab,
-			["<C-u>"] = actions.preview_scrolling_up,
-			["<C-d>"] = actions.preview_scrolling_down,
-			["<PageUp>"] = actions.results_scrolling_up,
-			["<PageDown>"] = actions.results_scrolling_down,
-			["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-			["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-			["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-			["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-			["<C-l>"] = actions.complete_tag,
-			["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
-		},
-		n = {
-			["<esc>"] = actions.close,
-			["<CR>"] = actions.select_default,
-			["<C-x>"] = actions.select_horizontal,
-			["<C-v>"] = actions.select_vertical,
-			["<C-t>"] = actions.select_tab,
-			["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-			["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-			["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-			["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-			["j"] = actions.move_selection_next,
-			["k"] = actions.move_selection_previous,
-			["H"] = actions.move_to_top,
-			["M"] = actions.move_to_middle,
-			["L"] = actions.move_to_bottom,
-			["<Down>"] = actions.move_selection_next,
-			["<Up>"] = actions.move_selection_previous,
-			["gg"] = actions.move_to_top,
-			["G"] = actions.move_to_bottom,
-			["<C-u>"] = actions.preview_scrolling_up,
-			["<C-d>"] = actions.preview_scrolling_down,
-			["<PageUp>"] = actions.results_scrolling_up,
-			["<PageDown>"] = actions.results_scrolling_down,
-			["?"] = actions.which_key,
+			n = {
+				["<M-p>"] = action_layout.toggle_preview,
+			},
 		},
 	},
 	pickers = {
 		find_files = {
-			-- theme = "dropdown",
-			previewers = false,
-			find_command = { "fd" },
+			mappings = {
+				n = {
+					["cd"] = function(prompt_bufnr)
+						local selection = require("telescope.actions.state").get_selected_entry()
+						local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+						actions.close(prompt_bufnr)
+						vim.cmd(string.format("silent cd %s", dir))
+					end,
+				},
+			},
+			theme = "dropdown",
 		},
-		preview = {
-			binary = false,
-		},
-	},
-	["ui-select"] = {
-		require("telescope.themes").get_dropdown({}),
 	},
 	extensions = {
 		-- fzf syntax
@@ -127,3 +111,12 @@ telescope.setup({
 		},
 	},
 })
+
+-- load dap as extension
+-- telescope.load_extension('dap')
+telescope.load_extension("fzf")
+telescope.load_extension("ui-select")
+-- telescope.load_extension('vim_bookmarks')
+telescope.load_extension("live_grep_args")
+-- telescope.load_extension('project')
+telescope.load_extension("aerial")

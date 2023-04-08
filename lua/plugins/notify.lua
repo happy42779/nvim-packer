@@ -1,12 +1,12 @@
-local status_ok, notif = pcall(require, "notify")
+local status_ok, _notify = pcall(require, "notify")
 if not status_ok then
     vim.notify("Module not found: notify.")
     return
 end
 
-vim.notify = notif
+vim.notify = _notify
 
-notif.setup({
+_notify.setup({
     -- Animation style (see below for details)
     stages = "fade_in_slide_out",
     -- Function called when a new window is opened, use for changing win settings/config
@@ -16,14 +16,14 @@ notif.setup({
     -- Render function for notifications. See notify-render()
     render = "default",
     -- Default timeout for notifications
-    timeout = 5000,
+    timeout = 3000,
     -- Max number of columns for messages
     max_width = nil,
     -- Max number of lines for a message
     max_height = nil,
     -- For stages that change opacity this is treated as the highlight behind the window
     -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
-    background_colour = "Normal",
+    background_colour = "#000000",
     -- Minimum width for notification windows
     minimum_width = 50,
     -- Icons for the different levels
