@@ -39,10 +39,10 @@ set.termguicolors = true
 
 -- folding
 -- set.foldmethod = "expr"
-set.foldcolumn = "1"
-set.foldlevel = 99
+--set.foldcolumn = "1"
+--set.foldlevel = 99
 set.foldlevelstart = 99
--- set.foldexpr = "nvim_treesitter#foldexpr()"
+---- set.foldexpr = "nvim_treesitter#foldexpr()"
 set.foldenable = true
 
 -- markdown preview format settings
